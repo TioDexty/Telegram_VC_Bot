@@ -1,16 +1,16 @@
-HELP_TEXT = """__**I Can Play Music In The Voice Chat**__
+HELP_TEXT = """__**Posso tocar música no chat de voz**__
 
-**/start** __To Start The bot.__
-**/help** __To Show This Message.__
-**/skip** __To Skip The Current Playing Music.__
+**/start** __Para iniciar o bot.__
+**/help** __Para mostrar esta mensagem.__
+**/skip** __Para pular a música que está tocando no momento.__
 **/play** __<youtube/saavn/deezer> <Song_Name>__
-**/joinvc** __To Join A Voice Chat.__
-**/leavevc** __To Leave A Voice Chat.__
-**/telegram** __To Play From Telegram Audio.__
+**/joinvc** __Para entrar em um bate-papo de voz.__
+**/leavevc** __Para sair de um chat de voz.__
+**/telegram** __Para reproduzir a partir do áudio do Telegram.__
 
-__**NOTE: Do Not Assign These Commands To Bot Via BotFather.**__"""
+__**NOTE: @TioDexty.**__"""
 
-START_TEXT = "__**Hi I'm Telegram Voice Chat Bot. Join @PatheticProgrammers For Support.**__"
+START_TEXT = "__**Olá, sou o Telegram Voice Chat Bot. @TioDexty For Support.**__"
 
 REPO_TEXT = "[Github](https://github.com/thehamkercat/Telegram_vc_bot)" \
             + " | [Group](t.me/PatheticProgrammers)"
