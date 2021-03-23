@@ -63,12 +63,12 @@ async def joinvc(_, message):
     global chat_joined
     try:
         if chat_joined:
-            await send("__**Bot Is Already In Voice Chat.**__")
+            await send("__**O bot já está no chat de voz.**__")
             return
         chat_id = message.chat.id
         await vc.start(chat_id)
         chat_joined = True
-        m = await send("__**Joined The Voice Chat.**__")
+        m = await send("__**Entrou no chat de voz.**__")
     except Exception as e:
         print(str(e))
         await send(str(e))
@@ -78,10 +78,10 @@ async def joinvc(_, message):
 async def leavevc(_, message):
     global chat_joined
     if not chat_joined:
-        await send("__**Already Out Of Voice Chat.**__")
+        await send("__**Já está fora do chat de voz.**__")
         return
     chat_joined = False
-    m = await send("__**Left The Voice Chat.**__")
+    m = await send("__**Saiu do chat de voz.**__")
 
 
 @app.on_message(filters.command("kill") & filters.user(owner_id))
@@ -105,7 +105,7 @@ async def queuer(_, message):
         await send(usage)
         return
     if len(queue) > 0:
-        await send("__**Added To Queue.__**")
+        await send("__**Adicionado à fila.__**")
         queue.append({"service": service, "song": song_name,
                       "requested_by": requested_by})
         await play()
@@ -119,10 +119,10 @@ async def queuer(_, message):
 async def skip(_, message):
     global playing
     if len(queue) == 0:
-        m = await send("__**Queue Is Empty, Just Like Your Life.**__")
+        m = await send("__**A fila está vazia, assim como sua vida.**__")
         return
     playing = False
-    m = await send("__**Skipped!**__")
+    m = await send("__**Pulado!**__")
     await play()
 
 
@@ -136,7 +136,7 @@ async def queue_list(_, message):
             i += 1
         m = await send(text)
     else:
-        m = await send("__**Queue Is Empty, Just Like Your Life.**__")
+        m = await send("__**A fila está vazia, assim como sua vida.**__")
 
 
 # Queue handler
@@ -196,18 +196,18 @@ async def deezer(requested_by, query):
         artist = songs[0].artist
         url = songs[0].url
     except:
-        await m.edit("__**Found No Song Matching Your Query.**__")
+        await m.edit("__**Não foi encontrada nenhuma música que corresponda à sua consulta.**__")
         playing = False
         return
-    await m.edit("__**Generating Thumbnail.**__")
+    await m.edit("__**Gerando miniatura.**__")
     await generate_cover_square(requested_by, title, artist, duration, thumbnail)
-    await m.edit("__**Downloading And Transcoding.**__")
+    await m.edit("__**Baixando e transcodificando.**__")
     await download_and_transcode_song(url)
     await m.delete()
     m = await app.send_photo(
         chat_id=sudo_chat_id,
         photo="final.png",
-        caption=f"**Playing** __**[{title}]({url})**__ **Via Deezer.**",
+        caption=f"**Jogando** __**[{title}]({url})**__ **Via Deezer.**",
     )
     os.remove("final.png")
     await asyncio.sleep(int(songs[0]["duration"]))
@@ -230,7 +230,7 @@ async def jiosaavn(requested_by, query):
         sduration = songs[0].duration
         sduration_converted = convert_seconds(int(sduration))
     except Exception as e:
-        await m.edit("__**Found No Song Matching Your Query.**__")
+        await m.edit("__**Não foi encontrada nenhuma música que corresponda à sua consulta.**__")
         print(str(e))
         playing = False
         return
@@ -238,7 +238,7 @@ async def jiosaavn(requested_by, query):
     await generate_cover_square(
         requested_by, sname, ssingers, sduration_converted, sthumb
     )
-    await m.edit("__**Downloading And Transcoding.**__")
+    await m.edit("__**Baixando e transcodificando.**__")
     await download_and_transcode_song(slink)
     await m.delete()
     m = await app.send_photo(
@@ -258,7 +258,7 @@ async def jiosaavn(requested_by, query):
 async def ytplay(requested_by, query):
     global playing
     ydl_opts = {"format": "bestaudio"}
-    m = await send(f"__**Searching for {query} on YouTube.**__")
+    m = await send(f"__**Procurando por {query} no YouTube.**__")
     try:
         results = await arq.youtube(query, 1)
         link = f"https://youtube.com{results[0].url_suffix}"
@@ -267,11 +267,11 @@ async def ytplay(requested_by, query):
         duration = results[0].duration
         views = results[0].views
         if time_to_seconds(duration) >= 1800:
-            await m.edit("__**Bruh! Only songs within 30 Mins.**__")
+            await m.edit("__**Caramba! Apenas músicas dentro de 30 minutos.**__")
             playing = False
             return
     except Exception as e:
-        await m.edit("__**Found No Song Matching Your Query.**__")
+        await m.edit("__**OK IREI TOCA LA.**__")
         playing = False
         print(str(e))
         return
